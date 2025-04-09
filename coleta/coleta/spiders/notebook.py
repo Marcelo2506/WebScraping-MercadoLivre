@@ -15,5 +15,7 @@ class NotebookSpider(scrapy.Spider):
             yield {
                 'brand': product.css('span.poly-component__brand::text').get(),
                 'name': product.css('a.poly-component__title::text').get(),
-                'Loja': product.css('span.poly-component__seller::text').get()
+                'seller': product.css('span.poly-component__seller::text').get(),
+                'review_ratings_number': product.css('span.poly-reviews__rating::text').get(),
+                'reviews_amount': product.css('span.poly-reviews__total::text').get()
             }
