@@ -33,3 +33,6 @@ class NotebookSpider(scrapy.Spider):
             if next_page:
                 self.page_count = + 1
                 yield scrapy.Request(url=next_page, callback=self.parse)
+
+# Comando para rodar e direcionar o arquivo para pasta data
+# scrapy crawl notebook -o ../../data/data.json
