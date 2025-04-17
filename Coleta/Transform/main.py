@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
 from datetime import datetime
+from sqlalchemy import create_engine
 
 df = pd.read_json(r'data\data.json')
 
@@ -33,7 +34,7 @@ df['reviews_rating_number'] = df['reviews_rating_number'].astype(float)
 
 
 # Criando Banco de Dados
-
+'''
 conn = sqlite3.connect('data/mercadolivre.db')
 
 # Salvar df no banco de dados
@@ -41,3 +42,19 @@ df.to_sql('notebook', conn, if_exists='replace', index=False)
 
 # Fechar a conexao
 conn.close()
+'''
+
+# Acrescentando ao Projeto Exportação Direto para o PostgreSQL
+
+# dados da conexao
+usuario = 'postgres'
+senha = '2506'
+host = 'localhost'
+porta = '5432'
+banco = 'Mercado Livre'
+
+# criação da engine de conexão
+engine = create_engine(
+    f'postgresql+psycopg2://{usuario}:{senha}@{host}:{porta}/{banco}')
+
+df.to_sql('Notebooks_WS', con=engine, if_exists='replace', index=False)
