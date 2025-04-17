@@ -12,7 +12,8 @@ df['source'] = "https://lista.mercadolivre.com.br/notebook#D[A:notebook]"
 # Registrar data da raspagem de dados
 df['Data'] = datetime.now()
 
-# Tratando Nulos
+# Tratando Nulos None converter para 0
+
 df['old_money'] = df['old_money'].fillna('0')
 df['new_money'] = df['new_money'].fillna('0')
 df['reviews_rating_number'] = df['reviews_rating_number'].fillna('0')
@@ -30,7 +31,13 @@ df['new_money'] = df['new_money'].astype(float)
 df['reviews_amount'] = df['reviews_amount'].astype(int)
 df['reviews_rating_number'] = df['reviews_rating_number'].astype(float)
 
-# None converter para 0
 
+# Criando Banco de Dados
 
-print(df)
+conn = sqlite3.connect('data/mercadolivre.sql')
+
+# Salvar df no banco de dados
+df.to_sql('notebook', conn, if_exists='replace', index=False)
+
+# Fechar a conexao
+conn.close()
