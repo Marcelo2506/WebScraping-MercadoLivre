@@ -34,7 +34,7 @@ df['reviews_rating_number'] = df['reviews_rating_number'].astype(float)
 
 # Criando Banco de Dados
 
-conn = sqlite3.connect('data/mercadolivre.sql')
+conn = sqlite3.connect('data/mercadolivre.db')
 
 # Salvar df no banco de dados
 df.to_sql('notebook', conn, if_exists='replace', index=False)
